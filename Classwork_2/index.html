@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classwork_2</title>
+</head>
+
+<body>
+  <script>
+    const Person = {
+      name: '',
+      age: 0,
+      gender: '',
+
+      introduce() {
+        console.log(`My name is ${this.name}. I'm ${this.age} years old and I identify as ${this.gender}.`);
+      },
+
+      changeName(newName) {
+        this.name = newName;
+      }
+    }
+
+    Person.name = 'John';
+    Person.age = 25;
+    Person.gender = 'male';
+    Person.introduce(); // Ожидаемый результат: 'My name is John. I'm 25 years old and I identify as male.'
+
+    Person.changeName('Mike');
+    Person.introduce();
+
+
+
+    const Animal = {
+      name: '',
+
+      eat() {
+        console.log(`${this.name} is eating.`);
+      },
+    }
+
+    const Dog = {
+      name: '',
+
+      bark() {
+        console.log(`${this.name} is barking.`);
+      }
+    }
+
+    // Одалживание метода eat() из объекта Animal к объекту Dog:
+    Dog.name = 'Rex';
+    Dog.eat = Animal.eat;
+    Dog.eat(); // Вывод: Rex is eating.'
+
+
+
+    const Calculator = {
+      add(a, b) {
+        return a + b;
+      },
+
+      subtract(a, b) {
+        return a - b;
+      },
+
+      multiply(a, b) {
+        return a * b;
+      }
+    }
+
+    console.log(Calculator.add.call(null, 15, 3)); // Вывод: 18
+    console.log(Calculator.subtract.apply(null, [5, 30])); // Вывод: -25
+
+
+
+    class Persona {
+      name = '';
+      age = 0;
+
+      constructor(name, age) {
+        this.name = name,
+          this.age = age;
+      }
+
+      introduce() {
+        console.log(`My name is ${this.name} and I'm ${this.age} years old.`);
+      }
+    }
+
+    const persona = new Persona('John', 25);
+    persona.introduce(); // Вывод: 'My name is John and I'm 25 years old.'
+
+
+
+    class BankAccount {
+      static bankName = 'MyBank';
+      accountNumber = 0;
+      balance = 0;
+
+      constructor(accountNumber, balance = 0) {
+        this.accountNumber = accountNumber;
+        this.balance = balance;
+      }
+
+      deposit(amount) {
+        this.balance += amount;
+        console.log(`Deposited ${amount} into account ${this.accountNumber}. New balance: ${this.balance}.`);
+      }
+
+      withdraw(amount) {
+        if (amount > this.balance) {
+          console.log(`Insufficient funds in account ${this.accountNumber}.`);
+        } else {
+          this.balance -= amount;
+          console.log(`Withdraw ${amount} from account ${this.accountNumber}. New balance: ${this.balance}.`);
+        }
+      }
+    }
+
+    const account1 = new BankAccount('1234567890', 1000);
+    account1.deposit(500); // Вывод: 'Deposited 500 into account 1234567890. New balance: 1500.'
+    account1.withdraw(200); // Вывод: 'Withdraw 200 from account 1234567890. New balance: 1300.'
+    account1.withdraw(1500); // Вывод 'Insufficient funds in account 1234567890.'
+  </script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
