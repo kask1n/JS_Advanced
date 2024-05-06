@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Classwork_4</title>
+</head>
+
+<body>
+  <h1>Список пользователей</h1>
+  <button class="sort">Сортировка</button>
+  <ul class="users-list"></ul>
+
+  <script>
+    // function delayedMessage(message, delay) {
+    //   setTimeout(() => {
+    //     console.log(message);
+    //   }, delay);
+    // }
+
+    // delayedMessage('Сообщение 1', 2000);
+    // delayedMessage('Сообщение 2', 1000);
+    // delayedMessage('Сообщение 3', 3000);
+    // delayedMessage('Завершение программы', 3500);
+
+
+
+    // const tasks = [
+    //   { name: 'task 1', time: 1000 },
+    //   { name: 'task 2', time: 2000 },
+    //   { name: 'task 3', time: 3000 },
+    //   { name: 'task 4', time: 4000 },
+    //   { name: 'task 5', time: 5000 }
+    // ];
+
+    // const allTasks = (taskList, interval) => {
+    //   let delay = 0;
+    //   taskList.forEach(task => {
+    //     setTimeout(() => {
+    //       console.log(task.name);
+    //     }, delay);
+
+    //     // delay += interval;
+    //     delay += task.time;
+    //   });
+    // }
+
+    // allTasks(tasks, 1000);
+
+
+
+    // function loadData(url) {
+    //   xhr = new XMLHttpRequest();
+
+    //   xhr.onReadyStateChange = function () {
+    //     if (xhr.readyState === 4 && xhr.status === 200) {
+    //       console.log(xhr.responseText);
+    //     }
+    //   };
+
+    //   xhr.open('GET', url, true);
+    //   xhr.send();
+    // }
+
+    // loadData("https://jsonplaceholder.typicode.com/users");
+
+
+
+    // fetch("https://jsonplaceholder.typicode.com/users")
+    //   .then((result) => {
+    //     if (result.ok) {
+    //       return result.text();
+    //     }
+    //     throw new Error('ОШИБКА. Не всё ОК...');
+    //   })
+    //   .then(data => {
+    //     console.log(data);
+    //   })
+    //   .catch((err) => {
+    //     console.error('Много ошибок, решай вопросы.');
+    //   });
+
+
+
+    const usersList = document.querySelector('.users-list');
+
+    const renderUsersList = (users) => {
+      usersList.innerHTML = '';
+      users.forEach(user => {
+        const listItem = document.createElement('li');
+        listItem.innerHTML = `
+          <div>
+            <h2>${user.name}</h2>
+            <p>${user.email}</p>
+          </div>
+        `;
+        usersList.append(listItem);
+      });
+    }
+
+    const sortUsersByName = (users) => {
+      const sortedUsers = users.sort((a, b) => {
+        const name1 = a.name.toLowerCase();
+        const name2 = b.name.toLowerCase();
+        if (name1 < name2) {
+          return - 1;
+        }
+
+        if (name1 > name2) {
+          return 1;
+        }
+
+        return 0;
+      });
+
+      renderUsersList(sortedUsers);
+    }
+
+    fetch("https://jsonplaceholder.typicode.com/users")
+      .then((result) => result.json())
+      .then(data => {
+        renderUsersList(data);
+        const sortElement = document.querySelector('.sort');
+        sortElement.addEventListener('click', function () {
+          sortUsersByName(data);
+        });
+      })
+      .catch((err) => {
+        console.error('Много ошибок, решай вопросы.');
+      });
+  </script>
+
+  <script src="script.js"></script>
+</body>
+
+</html>
